@@ -1,0 +1,24 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../innerLoopMainFIR.c 
+
+C_DEPS += \
+./innerLoopMainFIR.d 
+
+OBJS += \
+./innerLoopMainFIR.obj 
+
+OBJS__QUOTED += \
+"innerLoopMainFIR.obj" 
+
+C_DEPS__QUOTED += \
+"innerLoopMainFIR.d" 
+
+C_SRCS__QUOTED += \
+"../innerLoopMainFIR.c" 
+
+

@@ -1,0 +1,36 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../innerLoopFunctionFIR.c \
+../innerLoopMainFIR.c \
+../unrolledFIR.c 
+
+C_DEPS += \
+./innerLoopFunctionFIR.d \
+./innerLoopMainFIR.d \
+./unrolledFIR.d 
+
+OBJS += \
+./innerLoopFunctionFIR.obj \
+./innerLoopMainFIR.obj \
+./unrolledFIR.obj 
+
+OBJS__QUOTED += \
+"innerLoopFunctionFIR.obj" \
+"innerLoopMainFIR.obj" \
+"unrolledFIR.obj" 
+
+C_DEPS__QUOTED += \
+"innerLoopFunctionFIR.d" \
+"innerLoopMainFIR.d" \
+"unrolledFIR.d" 
+
+C_SRCS__QUOTED += \
+"../innerLoopFunctionFIR.c" \
+"../innerLoopMainFIR.c" \
+"../unrolledFIR.c" 
+
+

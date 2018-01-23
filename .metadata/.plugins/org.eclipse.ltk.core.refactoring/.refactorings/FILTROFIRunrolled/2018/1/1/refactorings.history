@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;firfilter/innerLoopFunctionFIR&apos; to &apos;innerLoopFunctionFIR.c&apos;" description="Rename resource &apos;innerLoopFunctionFIR&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="innerLoopFunctionFIR" name="innerLoopFunctionFIR.c" stamp="1515244259861" updateReferences="true"/>
+</session>

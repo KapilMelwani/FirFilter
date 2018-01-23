@@ -1,0 +1,47 @@
+/**
+ * main.c
+ */
+#include <stdio.h>
+#include <stdlib.h>
+
+#define COEF 5
+#define SAMPLES 5
+
+float* inicializacion_coeficientes()
+{
+    float vector_coeficientes = (float *)malloc(COEF);
+    int i=0;
+    for(i=0;i<COEF;i++)
+        vector_coeficientes = 1/COEF;
+    return vector_coeficientes;
+}
+
+int main(void)
+{
+    float* vector_in = (float*) malloc(M+COEF-1);
+    float* vector_coef;
+    float* vector_out = (float*) malloc(M+COEF-1);
+
+    vector_coef = inicializacion_coef();
+
+    int i=0;
+    int j=0;
+    for(i;i<(COEF-1)/2;i++){
+        vector_in[i] = 0;
+        vector_in[M+i] = 0;
+    }
+
+    for(i=COEF-1;i<M;i++)
+        vector_in[i] = ;
+    for(i=0;i<M+COEF-1;i++){
+        vector_out[i] = 0;
+        for(j=0;j<COEF;j++)
+            vector_out += vector_coef[i] * vector_in[i-j]
+    }
+
+    free vector_coef;
+    free vector_in;
+    free vector_out;
+
+	return 0;
+}

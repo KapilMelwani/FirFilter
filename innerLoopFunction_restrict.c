@@ -1,0 +1,106 @@
+/*
+ * innerLoopFunction.c ~ Fir Filter with two innerLoop in Main
+ *
+ *  Created on: Jan 4, 2018
+ *      Author: Kapil Ashok Melwani Chugani
+ *      Subject: Arquitecturas Avanzadas y de Propósito Específico
+ *      Institution: Universidad de La Laguna - ETSII (2017)
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define COEF 5
+#define SAMPLES 5
+
+/*Inicializacion de coeficientes: Cargamos el archivo que contienen los 
+coeficientes llamado "Coeficientes.csv" e integramos los valores del csv en
+un array de float */
+float* inicializacion_coeficientes()
+{
+    float* restrict vector_coeficientes = (float*) malloc(COEF*sizeof(float));
+    int i=0;
+    FILE *fich_coef = fopen ("Coeficientes.csv", "r");
+    while(fscanf(fich_coef, "%f", &vector_coeficientes[i]) != EOF && i<COEF)
+        i++;
+    fclose(fich_coef);
+
+    return vector_coeficientes;
+}
+
+/*Inicializacion del vector de Entrada: Cargamos el fichero con los valores
+del IBEX 35*/
+float* inicializacion_vector_in()
+{
+    int i=0;
+    FILE *fich = fopen ("IBEX35_2.csv", "r");
+    float* restrict vector_entrada = (float*) malloc((SAMPLES+COEF-1)*sizeof(float));
+    float ibex35_close_float;
+    char* ibex35_close_char;
+    char *ibex35_data;
+    char* restrict date = (char*)malloc((SAMPLES*COEF-1)*sizeof(char));
+    float* restrict close = (float*)malloc((SAMPLES*COEF-1)*sizeof(float));
+    int j;
+    const size_t line_size = 3000;
+    const char token[2] = ";";
+    char* line = malloc(line_size);
+    //Inicializacion Prologo y Epílogo
+    for(i=0; i<(COEF-1)/2; i++){
+        vector_entrada[i] = 0;
+        vector_entrada[SAMPLES+i] = 0;
+    }
+    i=0;
+    while (fgets(line, line_size, fich) != NULL && i<=SAMPLES+COEF-1){
+        ibex35_data = strtok(line,token);
+        ibex35_close_char = strtok(NULL,token);
+        ibex35_close_float = strtod(ibex35_close_char,NULL);
+        vector_entrada[i] = ibex35_close_float;
+        i++;
+    }
+    return vector_entrada;
+}
+
+float* firfilter(float* restrict vector_coef, float* restrict vector_in){
+    float* vector_salida = (float *) malloc((SAMPLES+COEF-1) * sizeof(float));
+    int i;
+    int j;
+    for(i=0; i<SAMPLES+COEF-1; i++){
+        vector_salida[i] = 0;
+        for(j=0; j<COEF ; j++)
+            vector_salida[i] += vector_coef[i+j] * vector_in[i];
+    }
+    
+    return vector_salida;
+}
+
+int main(void)
+{
+    float* restrict vector_in;
+    float* restrict vector_coef;
+    float* restrict vector_out;
+    int i,j;
+    vector_in = inicializacion_vector_in();
+    vector_coef = inicializacion_coeficientes();
+    printf("============================================\n");
+    printf("\t\tCOEFICIENTES:\n");
+    for(i=0;i<COEF;i++)
+        printf("%f\n",vector_coef[i]);
+    printf("============================================\n\n\n");
+    printf("============================================\n");
+    printf("\t\tIBEX 35:\n");
+    for(i=0;i<SAMPLES+COEF-1;i++)
+        printf("%f\n",vector_in[i]);
+    printf("============================================\n\n\n");
+    
+    //APLICACION DEL FIR FILTER (CON DOS BUCLES ANIDADOS EN EL MAIN)
+    vector_out = firfilter(vector_coef,vector_in);
+    
+    printf("============================================\n");
+    printf("\t\tVECTOR SALIDA:\n");
+    for(i=0;i<SAMPLES+COEF-1;i++)
+        printf("%f\n",vector_out[i]);
+    printf("============================================\n");
+
+    return 0;
+}

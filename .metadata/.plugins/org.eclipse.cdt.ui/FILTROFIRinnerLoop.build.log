@@ -1,0 +1,26 @@
+
+**** Build of configuration Release for project FILTROFIRinnerLoop ****
+
+/opt/ti/ccsv7/utils/bin/gmake -k -j 4 all -O 
+ 
+Building file: "../innerLoopMainFIR.c"
+Invoking: ARM Compiler
+"/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv4 --code_state=32 -O2 --include_path="/root/Desktop/FILTRO FIR/FILTROFIRinnerLoop" --include_path="/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="innerLoopMainFIR.d_raw"  "../innerLoopMainFIR.c"
+Finished building: "../innerLoopMainFIR.c"
+ 
+Building target: "FILTROFIRinnerLoop.out"
+Invoking: ARM Linker
+"/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv4 --code_state=32 -O2 --diag_warning=225 --diag_wrap=off --display_error_number -z -m"FILTROFIRinnerLoop.map" -i"/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/lib" -i"/opt/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="FILTROFIRinnerLoop_linkInfo.xml" --rom_model -o "FILTROFIRinnerLoop.out" "./innerLoopMainFIR.obj"  -llibc.a 
+<Linking>
+warning #10247-D: creating output section ".text" without a SECTIONS specification
+warning #10247-D: creating output section ".const" without a SECTIONS specification
+warning #10247-D: creating output section ".data" without a SECTIONS specification
+warning #10247-D: creating output section ".bss" without a SECTIONS specification
+warning #10247-D: creating output section ".cinit" without a SECTIONS specification
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+warning #10210-D: creating ".stack" section with default size of 0x800; use the -stack option to change the default size
+warning #10210-D: creating ".sysmem" section with default size of 0x800; use the -heap option to change the default size
+Finished building target: "FILTROFIRinnerLoop.out"
+ 
+
+**** Build Finished ****

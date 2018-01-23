@@ -1,0 +1,96 @@
+/*
+ * innerLoopFunctionFIR.c ~ Fir Filter with two innerLoop in Main
+ *
+ *  Created on: Jan 4, 2018
+ *      Author: Kapil Ashok Melwani Chugani
+ *      Subject: Arquitecturas Avanzadas y de Propósito Específico
+ *      Institution: Universidad de La Laguna - ETSII (2017)
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define COEF 5
+#define SAMPLES 5
+
+/*Inicializacion de coeficientes: Cargamos el archivo que contienen los
+coeficientes llamado "Coeficientes.csv" e integramos los valores del csv en
+un array de float */
+float* inicializacion_coeficientes()
+{
+    float* vector_coeficientes = (float*) malloc(COEF*sizeof(float));
+    int i=0;
+    FILE *fich_coef = fopen ("Coeficientes.csv", "r");
+    while(fscanf(fich_coef, "%f", &vector_coeficientes[i]) != EOF && i<COEF)
+        i++;
+    fclose(fich_coef);
+
+    return vector_coeficientes;
+}
+
+/*Inicializacion del vector de Entrada: Cargamos el fichero con los valores
+del IBEX 35*/
+float* inicializacion_vector_in()
+{
+    int i=0;
+    float* vector_entrada = (float*) malloc((SAMPLES+COEF-1)*sizeof(float));
+    float buffer;
+    //Inicializacion Prologo y Epílogo
+    for(i=0; i<(COEF-1)/2; i++){
+        vector_entrada[i] = 0;
+        vector_entrada[SAMPLES+i] = 0;
+    }
+    //Lectura de Datos
+    i=0;
+    FILE *fich_in = fopen ("IBEX35.csv", "r");
+    while(fscanf(fich_in, "%f", &vector_entrada[i]) != EOF && i<(SAMPLES+COEF-1))
+        i++;
+    fclose(fich_in);
+
+    return vector_entrada;
+}
+
+//Funcion firfilter la cual ejecuta el filtro fir dentro de una funcion
+float* firfilter(float* vector_coef, float* vector_in){
+    float* vector_salida = (float *) malloc((SAMPLES+COEF-1) * sizeof(float)); //Inicializamos vector_salida (out)
+    int i;
+    int j;
+    for(i=0; i<SAMPLES+COEF-1; i++){
+        vector_salida[i] = 0;
+        for(j=0; j<COEF ; j++)
+            vector_salida[i] += vector_coef[i+j] * vector_in[i];
+    }
+
+    return vector_salida;
+}
+
+int main(void)
+{
+    float* vector_in;
+    float* vector_coef;
+    float* vector_out;
+    int i,j;
+    vector_in = inicializacion_vector_in();
+    vector_coef = inicializacion_coeficientes();
+    printf("============================================\n");
+    printf("\t\tCOEFICIENTES:\n");
+    for(i=0;i<COEF;i++)
+        printf("%f\n",vector_coef[i]);
+    printf("============================================\n\n\n");
+    printf("============================================\n");
+    printf("\t\tIBEX 35:\n");
+    for(i=0;i<SAMPLES+COEF-1;i++)
+        printf("%f\n",vector_in[i]);
+    printf("============================================\n\n\n");
+
+    //APLICACION DEL FIR FILTER (en funcion firfilter(coef,in))
+    vector_out = firfilter(vector_coef,vector_in);
+
+    printf("============================================\n");
+    printf("\t\tVECTOR SALIDA:\n");
+    for(i=0;i<SAMPLES+COEF-1;i++)
+        printf("%f\n",vector_out[i]);
+    printf("============================================\n");
+
+    return 0;
+}
